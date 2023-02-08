@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import toast from 'react-hot-toast';
 
 export default function Schedule(){
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCPF] = useState('');
@@ -24,10 +25,22 @@ export default function Schedule(){
     console.log(newSchedule);
     try{
       let res = await axios.post('http://localhost:3000/schedule', newSchedule);
-      toast.success(res.data.message);
-      console.log(res);
+      if(res.data.error){
+        toast.error(res.data.message);
+        return;
+      }
+      else{
+        toast.success(res.data.message);
+        setName('');
+        setEmail('');
+        setCPF('');
+        setDescription('');
+        setDate('');
+        setTime('');
+        navigate('/');
+      }
     } catch(err){
-      toast.error(err);
+      toast.error(err.response.data.message);
     }
   }
 
