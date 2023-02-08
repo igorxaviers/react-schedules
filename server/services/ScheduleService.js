@@ -2,6 +2,7 @@ import Schedule from '../models/Schedule.js';
 import BadRequest from '../errors/BadRequest.js';
 import InternalError from '../errors/InternalError.js';
 import ScheduleFactory from '../factories/ScheduleFactory.js';
+import nodemailer from 'nodemailer';
 
 class ScheduleService{
     
@@ -11,7 +12,6 @@ class ScheduleService{
 
     async getSchedules(showFinished = false){
         if(showFinished)
-            //order by date
             return await this.Schedule.find({}).sort({date: -1});
 
         else{
@@ -28,10 +28,11 @@ class ScheduleService{
 
     async searchSchedule(search){
         try{
-            let schedules = await this.Schedule.find().or([{'cpf': search}, {'email': search}]);
+            let schedules = await this.Schedule.find().or([ {'cpf':{$regex: `^${search}`}}, {'email':{$regex: `^${search}`} }]).sort({date: -1});
             return schedules;
         }
         catch(err){
+            console.log(err);
             throw new BadRequest('Schedule not found');
         }
     }
@@ -49,7 +50,8 @@ class ScheduleService{
             description: schedule.description,
             date: schedule.date,
             time: schedule.time,
-            finished: false
+            finished: false,
+            notified: false
         });
         try{
             const savedSchedule = await newSchedule.save();
@@ -82,6 +84,56 @@ class ScheduleService{
         }
     }
 
+    async notifySchedules(){
+        const transport = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: "0be24106b599ce",
+              pass: "f203003fa4f1c5"
+            }
+        });
+
+        try{
+            let schedules = await this.getSchedules();
+            schedules.forEach( async schedule => {
+                let hour = 1000 * 60 * 60;
+                let date = schedule.start.getTime();
+                let today = new Date().getTime();
+                let diff = date - today;
+
+                if(diff <= hour && !schedule.notified){
+
+                    let scheduleNotified = await this.getSchedule(schedule.id);
+                    scheduleNotified.notified = true;
+                    let savedSchedule = new Schedule(scheduleNotified);
+                    await savedSchedule.save();
+
+                    transport.sendMail({
+                        from: '<igorxavier@schedules.io>',
+                        to: schedule.email,
+                        subject: 'Schedule reminder',
+                        text: `Hello, this is a reminder for your schedule`
+                    })
+                    .then(() => {
+                        schedule.notified = true;
+                        schedule.save();
+                    })
+                    .catch(err => console.log(err));
+
+                }
+                else{
+
+                    console.log('Not notified');
+                    console.log(schedule);
+                }
+            });
+        }
+        catch(err){
+            console.log(err);
+            throw new BadRequest('Schedule not found');
+        }
+    }
 }
 
-    export default new ScheduleService();
+export default new ScheduleService();

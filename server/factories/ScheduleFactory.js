@@ -14,7 +14,9 @@ class ScheduleFactory{
                 id: schedule._id,
                 title: `${schedule.name} - ${schedule.description}`,
                 start: startDate,
-                end: startDate
+                end: startDate,
+                email: schedule.email,
+                notified: schedule.notified
             } 
             return complexSchedule;
         }

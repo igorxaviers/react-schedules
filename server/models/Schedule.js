@@ -7,7 +7,8 @@ const ScheduleSchema = new mongoose.Schema({
     description: String,
     date: Date,
     time: String,
-    finished: Boolean
+    finished: Boolean,
+    notified: Boolean
 });
 
 export default mongoose.model('Schedule', ScheduleSchema);

@@ -7,7 +7,7 @@ router.post('/schedule', ScheduleController.create);
 router.put('/schedule/:id', ScheduleController.update);
 router.get('/schedule/:id', ScheduleController.get);
 router.post('/schedule/finish', ScheduleController.finish);
-router.get('/schedule/search', ScheduleController.search);
+router.get('/schedulesearch', ScheduleController.search);
 
 
 export default router;

@@ -6,7 +6,6 @@ import Schedule from '../models/Schedule.js';
 class ScheduleController{
     async index(req, res){
         let { finisheds } = req.query;
-        console.log(finisheds);
         try{
             if(finisheds){
                 const schedules = await ScheduleService.getSchedules(true);
@@ -36,10 +35,13 @@ class ScheduleController{
 
     async search(req, res){
         let { search } = req.query;
-        if(!search)
-            res.status(400).json({message: 'Search not provided'});
+        
         try{
-            const schedules = await ScheduleService.searchSchedule(search);
+            let schedules;
+            if(search === ''){
+                schedules = await ScheduleService.getSchedules(true); 
+            }
+            schedules = await ScheduleService.searchSchedule(search);
             res.status(200).json(schedules);
         }
         catch(err){
