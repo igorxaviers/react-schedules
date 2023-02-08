@@ -1,32 +1,56 @@
 import express from 'express';
+import ScheduleService from '../services/ScheduleService.js';
 import Schedule from '../models/Schedule.js';
 
 
 class ScheduleController{
     async index(req, res){
+        let { finisheds } = req.query;
+        console.log(finisheds);
         try{
-            const schedules = await Schedule.find();
-            res.json(schedules);
+            if(finisheds){
+                const schedules = await ScheduleService.getSchedules(true);
+                return res.status(200).json(schedules);
+            }
+            const schedules = await ScheduleService.getSchedules();
+            res.status(200).json(schedules);
         }
         catch(err){
-            res.json({message: err});
+            console.log(err);
+            res.status(500).json({message: err});
         }
     }
 
-    async store(req, res){
-        if(req.body.name && req.body.email && req.body.cpf && req.body.description && req.body.date && req.body.time){
-            const newSchedule = new Schedule({
-                name: req.body.name,
-                email: req.body.email,
-                cpf: req.body.cpf,
-                description: req.body.description,
-                date: req.body.date,
-                time: req.body.time,
-                finished: false
-            });
+    async get(req, res){
+        let { id } = req.params;
+        if(!id)
+            res.status(400).json({message: 'Id not provided'});
+        try{
+            const schedule = await ScheduleService.getSchedule(id);
+            res.status(200).json(schedule);
+        }
+        catch(err){
+            res.status(404).json({message: err});
+        }
+    }
 
+    async search(req, res){
+        let { search } = req.query;
+        if(!search)
+            res.status(400).json({message: 'Search not provided'});
+        try{
+            const schedules = await ScheduleService.searchSchedule(search);
+            res.status(200).json(schedules);
+        }
+        catch(err){
+            res.status(404).json({message: err});
+        }
+    }
+
+    async create(req, res){
+        if(req.body.name && req.body.email && req.body.description && req.body.date && req.body.time){
             try{
-                const savedSchedule = await newSchedule.save();
+                const savedSchedule = await ScheduleService.createSchedule(req.body);
                 res.status(201)
                 .json({
                     message:'New schedule created',
@@ -35,7 +59,7 @@ class ScheduleController{
                 });
             }
             catch(err){
-                res.satus(400)
+                res.status(400)
                 .json({
                     message: err,
                     error: true
@@ -50,6 +74,35 @@ class ScheduleController{
             });
         }
     }
+
+    async update(req, res){
+        let { id } = req.params;
+        if(!id)
+            res.status(400).json({message: 'Id not provided'});
+
+        try{
+        }
+        catch(err){
+            res.status(404).json({message: err});
+        }
+    }
+
+    async finish(req, res){
+        let { id } = req.body;
+        if(!id)
+            res.status(400).json({message: 'Id not provided'});
+
+        try{
+            const schedule = await ScheduleService.finishSchedule (id);
+            res.status(200).json({message: 'Schedule finished', schedule});
+        }
+        catch(err){
+            console.log(err);
+            res.status(404).json({message: err});
+        }
+    }
+
+
 }
 
 
