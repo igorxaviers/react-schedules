@@ -7,7 +7,8 @@ function Navbar(){
 
         <ul className='d-flex list-unstyled'>
             <li><Link to='/'>Home</Link></li>
-            <li><Link to='/schedule'>schedule</Link></li>
+            <li><Link to='/search'>Search</Link></li>
+            <li><Link to='/schedule'>New Schedule</Link></li>
         </ul>
     </nav>
   )

@@ -7,24 +7,20 @@ export default function Search(){
     const [schedules, setSchedules] = useState([]);
 
     useEffect(() => {
-        index();
-    },[]);
+        handleSearch();
+    }, []);
 
-    const index = async () => {
-        try{
-            let { data } = await axios.get(`http://localhost:3000/schedule?finisheds=true`);
-            console.log(data);
-            setSchedules(data);
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
+    useEffect(() => {
+        if(search.length < 3 && search!=='') return;
+        const delayDebounceFn = setTimeout(() => {
+            handleSearch();
+        }, 500)
+        return () => clearTimeout(delayDebounceFn)
+    }, [search]);
 
     const handleSearch = async () => {
         try{
-            let { data } = await axios.get(`http://localhost:3000/schedule/search/search=${search}`);
-            console.log(data);
+            let { data } = await axios.get(`http://localhost:3000/schedulesearch?search=${search}`);
             setSchedules(data);
         }
         catch(err){
@@ -38,14 +34,14 @@ export default function Search(){
 
             <div className="d-flex ">
                 <input className="form-control" type="search" placeholder="CPF or e-mail" onChange={(e) => setSearch(e.target.value)} />
-                <button className="btn btn-dark px-5 ms-3">Search</button>
+                <button className="btn btn-dark px-5 ms-3" onClick={handleSearch}>Search</button>
             </div>
 
             <div className="mt-5">
                 {
-                    schedules.map(schedule => {
+                    schedules.map((schedule, index) => {
                         return(
-                            <div>
+                            <div key={index}>
                                 <h3>{schedule.description}</h3>
 
                                 <div className="d-flex justify-content-between align-items-center border-bottom py-3">
@@ -68,9 +64,5 @@ export default function Search(){
                 }
             </div>
         </>
-
-
-
     )
-
 }
