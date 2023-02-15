@@ -29,10 +29,11 @@ export default function Search(){
     }
 
     return(
-        <>
-            <h1 className="mb-5">Search</h1>
+        <div className='col-md-5 mx-auto mt-5 px-md-0 px-3 mb-md-0'>
 
-            <div className="d-flex ">
+            <h2 className="mb-3 fw-semibold">Search schedules</h2>
+
+            <div className="d-flex mb-5">
                 <input className="form-control" type="search" placeholder="CPF or e-mail" onChange={(e) => setSearch(e.target.value)} />
                 <button className="btn btn-dark px-5 ms-3" onClick={handleSearch}>Search</button>
             </div>
@@ -42,7 +43,7 @@ export default function Search(){
                     schedules.map((schedule, index) => {
                         return(
                             <div key={index}>
-                                <h3>{schedule.description}</h3>
+                                <h3 className='mt-3 fs-5 fw-semibold'>{schedule.description}</h3>
 
                                 <div className="d-flex justify-content-between align-items-center border-bottom py-3">
                                     <div>
@@ -63,6 +64,6 @@ export default function Search(){
                     })
                 }
             </div>
-        </>
+        </div>
     )
 }

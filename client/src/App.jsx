@@ -1,21 +1,21 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
 import './style.scss'
 
 function App() {
 
   return (
-    <div className="App">
+    <div className='App'>
       <Navbar/>
-      <div className='col-md-6 mx-auto mt-5'>
-        <Outlet/>
-      </div>
+      <Outlet/>
+      
       <Toaster
         position="bottom-right"
         reverseOrder={false}/>
-      <p>Footer</p>
+      <Footer/>
     </div>
   )
 }

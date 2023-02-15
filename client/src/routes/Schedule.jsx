@@ -46,7 +46,7 @@ export default function Schedule(){
 
 
   return (
-    <>
+    <div className='col-md-5 mx-auto mt-5 px-md-0 px-3 mb-md-0'>
         <h2 className='mb-5'>new schedule</h2>
         
         <div className="form-group">
@@ -61,7 +61,7 @@ export default function Schedule(){
 
         <div className="form-group mt-3">
           <label htmlFor="name">CPF</label>
-          <input type="text" className="form-control" placeholder="CPF document" value={cpf} onChange={(e) => setCPF(e.target.value)}/>
+          <input type="text" className="form-control" placeholder="CPF document" value={cpf} onChange={(e) => setCPF(e.target.value)} maxLength="11"/>
         </div>
 
         <div className="form-group mt-3">
@@ -81,11 +81,8 @@ export default function Schedule(){
           </div>
         </div>
 
-        <button onClick={createSchedule} className="btn btn-primary mt-4 px-4">Schedule</button>
+        <button onClick={createSchedule} className="btn btn-primary mt-5 d-block ms-auto me-0 px-5 py-2">Schedule</button>
 
-        {/* <Link to="/detail/1">detalhe 1</Link>
-        <Link to="/detail/2">detalhe 2</Link>
-        <Link to="/detail/3">detalhe 3</Link> */}
-    </>
+    </div>
   )
 }

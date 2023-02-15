@@ -37,8 +37,8 @@ export default function ScheduleDetail(){
     }
 
     return (
-        <>
-            <h1 className='text-center'>{schedule.description}</h1>
+        <div className='col-md-5 mx-auto mt-5 px-md-0 px-3 mb-md-0'>
+            <h2 className='text-center fw-semibold fs-2 mb-5'>{schedule.description}</h2>
             <p>{schedule.name}</p>
             <p>{schedule.email}</p>
             <p>{schedule.cpf}</p>
@@ -46,13 +46,15 @@ export default function ScheduleDetail(){
             <p>{schedule.time}</p>
             <p>{schedule.description}</p>
 
-            {!schedule.finished ? 
-                <button className='btn btn-dark' onClick={finishSchedule}>Finalizar consulta</button>
-                :
-                <button className='btn btn-dark' disabled>Consulta finalizada</button>
-            }
-            {/* <p>informação id do detalhe {id}</p> */}
-            {/* <button onClick={() => navigate('/schedule')}>Voltar</button> */}
-        </>
+            <div className="d-flex mt-5">
+                {!schedule.finished ? 
+                    <button className='btn btn-dark px-4 py-2' onClick={finishSchedule}>Finalizar consulta</button>
+                    :
+                    <button className='btn btn-dark px-4 py-2' disabled>Consulta finalizada</button>
+                }
+                {/* <p>informação id do detalhe {id}</p> */}
+                <button className='btn btn-light px-4 ms-5' onClick={() => navigate('/')}>Voltar</button>
+            </div>
+        </div>
     )
 }

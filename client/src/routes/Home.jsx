@@ -22,14 +22,15 @@ export default function Home(){
   }
 
   return (
-    <>
+    <div className='col-md-9 mx-auto mt-4 px-md-0 px-3 mb-md-0'>
       <FullCalendar
         plugins={[ dayGridPlugin ]}
         initialView="dayGridMonth"
         locale={'pt-br'}
+        height={700}
         events={schedules}
         eventClick={(info) => { handleDetail(info.event.id) }}
       />
-    </>
+    </div>
   )
 }
