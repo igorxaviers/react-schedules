@@ -331,10 +331,27 @@
   resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-6.1.1.tgz#518e8fa70eec590c4df47e788101551c8e42714e"
   integrity sha512-/yIrN3IZSdob/UvAaPqWzBqyaQf3+DdcGG7xocVpmt2MudFbTpstF+ffPdBAQWqoWoB18Q92s6fn9teva5nDwA==
 
+"@fullcalendar/daygrid@~6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-6.1.4.tgz#fe1335eaa7a4e60ee4b0e6b3896b32398fac6c2c"
+  integrity sha512-X0QWEiA/hT8GYiQzmXt9DlZTWaQbNtBHBXGtaMNcVXbGHDCzLoWTHrde/jABGfr/i2+d9sLUO4oTtwz2HVpNtQ==
+
+"@fullcalendar/interaction@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-6.1.4.tgz#4816f29a4af824937be4639800cbafbca63e1af8"
+  integrity sha512-69G2B61bPiHy7VyTDiwU9l8yRHPUK9XxNxjIdm3N0nvWR6BaUIBDQe8dIWht+IZUf9qirFhnfcLWkRI0fOTWtw==
+
 "@fullcalendar/react@^6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-6.1.2.tgz#6bddcc217e69a5c63b3c5ec6b6204e457625e9fa"
   integrity sha512-GNKKOGQESVStj66vCd5Qd3fcQYy5ItqzmBVOWxpp5fj/eyhUf2in6Mwox+PeoLPjtroOFlrNvB5aSZDPKManew==
+
+"@fullcalendar/timegrid@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-6.1.4.tgz#b3370b80726d52445ec6f988744220a93c884f94"
+  integrity sha512-B2/levLKW0CyDQru75JeuASpCZml5W8sINCwVTstxxhjKmNBG3F5qvSX12DDrTdga/ySYObNNP1pKDwavKk/JQ==
+  dependencies:
+    "@fullcalendar/daygrid" "~6.1.4"
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
@@ -799,6 +816,11 @@ react-hot-toast@^2.4.0:
   integrity sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA==
   dependencies:
     goober "^2.1.10"
+
+react-icons@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.7.1.tgz#0f4b25a5694e6972677cb189d2a72eabea7a8345"
+  integrity sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw==
 
 react-refresh@^0.14.0:
   version "0.14.0"

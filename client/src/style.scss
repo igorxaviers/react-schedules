@@ -29,15 +29,34 @@ input, textarea{
 }
 
 nav{
-    // border-bottom: 1px solid $primary;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 1px solid $primary;
+    background-color: #fff;
 
 }
 
 footer{
-    // border-top: 1px solid $primary;
+    border-top: 1px solid $primary;
     bottom: 0;
-    position: absolute;
+    position: fixed;
     color: $primary-text !important;
     width: 100%;
+    z-index: 10;
+    background-color: #fff;
 }
 
+
+.search-result{
+    cursor: pointer;
+    border: 1px solid $primary;
+    border-radius: 0.5em;
+    p, h5{
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8em;
+        svg{
+            margin-right: 0.5em;
+        }
+    }
+}
